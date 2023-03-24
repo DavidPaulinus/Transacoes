@@ -1,6 +1,5 @@
 package br.com.AluraTransacao.Transacao.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.com.AluraTransacao.Transacao.model.DTO.TransacaoDTO;
@@ -9,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,10 +27,13 @@ public class Transacao {
 	private String bancoDestino;
 	private String agenciaDestino;
 	private String contaDestino;
-	private BigDecimal valor;
+	private Double valor;
 	private LocalDateTime dataHoraTransacao;
 
-	public Transacao(@Valid TransacaoDTO dto) {
+	public Transacao(TransacaoDTO dto) {
+		if(dto == null) {
+			throw new NullPointerException("Não é possível usar um arquivo em branco");
+		}
 		this.bancoOrigem = dto.bancoOrigem();
 		this.agenciaDestino = dto.agenciaDestino();
 		this.agenciaOrigem = dto.agenciaOrigem();
