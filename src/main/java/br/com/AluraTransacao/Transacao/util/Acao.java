@@ -1,7 +1,9 @@
 package br.com.AluraTransacao.Transacao.util;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import br.com.AluraTransacao.Transacao.model.ListaImpotacoes;
 import br.com.AluraTransacao.Transacao.model.Transacao;
 
 public class Acao {
@@ -44,6 +46,15 @@ public class Acao {
 			return "-10";
 		}
 		return string;
+	}
+
+	public boolean dataRepetida(LocalDate localDate, List<ListaImpotacoes> impo) {
+		for(ListaImpotacoes list: impo) {
+			if(list.getTransacao().equals(localDate)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

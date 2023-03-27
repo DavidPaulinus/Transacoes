@@ -2,7 +2,7 @@ package br.com.AluraTransacao.Transacao.model;
 
 import java.time.LocalDateTime;
 
-import br.com.AluraTransacao.Transacao.model.DTO.TransacaoDTO;
+import br.com.AluraTransacao.Transacao.model.DTO.transacao.TransacaoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

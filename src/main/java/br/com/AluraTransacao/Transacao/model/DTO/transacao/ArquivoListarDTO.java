@@ -1,4 +1,4 @@
-package br.com.AluraTransacao.Transacao.model.DTO;
+package br.com.AluraTransacao.Transacao.model.DTO.transacao;
 
 import java.time.LocalDateTime;
 

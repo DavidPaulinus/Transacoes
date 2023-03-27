@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lista de Transações</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+	crossorigin="anonymous">
+</head>
+<body>
+	<ul th:each="transacao : ${Transacoes}" class="list-group">
+		<li class="list-group-item"></li>
+		Banco Origem: <li th:text="${transacao.bancoOrigem}" class="container-md">bancoOrigem</li>
+		Agencia Origem: <li th:text="${transacao.agenciaOrigem}" class="container-md">agenciaOrigem</li>
+		Conta Origem: <li th:text="${transacao.contaOrigem}" class="container-md">contaOrigem</li>
+		Banco Destino: <li th:text="${transacao.bancoDestino}" class="container-md">bancoDestino</li>
+		Agencia Destino: <li th:text="${transacao.agenciaDestino}" class="container-md">agenciaDestino</li>
+		Agencia Destino: <li th:text="${transacao.contaDestino}" class="container-md">contaDestino</li>
+		Valor: R$ <li th:text="${transacao.valor}" class="container-md">valor</li>
+		Data e Hora da Transacao: <li th:text="${transacao.dataHoraTransacao}" class="container-md">dataHoraTransacao</li>
+	</ul>
+</body>
+</html>

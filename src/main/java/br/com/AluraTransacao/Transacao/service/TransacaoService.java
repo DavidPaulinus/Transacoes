@@ -12,15 +12,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
+import br.com.AluraTransacao.Transacao.model.ListaImpotacoes;
 import br.com.AluraTransacao.Transacao.model.Transacao;
-import br.com.AluraTransacao.Transacao.model.DTO.TransacaoDTO;
+import br.com.AluraTransacao.Transacao.model.DTO.importacoes.ImportacoesListarDTO;
+import br.com.AluraTransacao.Transacao.model.DTO.transacao.TransacaoDTO;
 import br.com.AluraTransacao.Transacao.util.Acao;
+import br.com.AluraTransacao.Transacao.util.repository.ImportacoesRepository;
 import br.com.AluraTransacao.Transacao.util.repository.TransacaoRepository;
 
 @Service
 public class TransacaoService {
 	@Autowired
 	private TransacaoRepository repo;
+	@Autowired
+	private ImportacoesRepository impoRepo;
 
 	private String path = "C:\\Users\\USER\\Downloads\\workspace\\eclipse\\exemplo.csv";
 	private List<Transacao> list;
@@ -30,7 +35,7 @@ public class TransacaoService {
 	public Page<Transacao> leituraArquivoCSV() throws IOException {
 		list = new ArrayList<>();
 		br = new BufferedReader(new FileReader(path));
-
+		
 		String linha = br.readLine();
 		while (linha != null) {
 			String[] line = linha.split(",");
@@ -42,21 +47,30 @@ public class TransacaoService {
 		br.close();
 		return new PageImpl<Transacao>(list);
 	}
+	
+	public List<ImportacoesListarDTO> listarTransacoes(){
+		return impoRepo.findAll().stream().map(ImportacoesListarDTO::new).toList();
+	}
 
-	public Page<Transacao> salvarDadosNoBD() throws IOException {
+	public List<Transacao> salvarDadosNoBD() throws IOException {
 		var dados = leituraArquivoCSV();
 
 		var primeiro = dados.getContent().get(0).getDataHoraTransacao();
 		
 		var listaBD = repo.findAll(); 
+		
+		var listaImpo = impoRepo.findAll();
 
 		for (Transacao list : dados) {
-			if (list.getDataHoraTransacao().getDayOfYear() == primeiro.getDayOfYear() && acao.ehIgual(listaBD, list) == false && acao.temBranco(list) == false) {
+			if (list.getDataHoraTransacao().getDayOfYear() == primeiro.getDayOfYear() && !acao.ehIgual(listaBD, list) && !acao.temBranco(list)) {
 				repo.save(list);
+				if(!acao.dataRepetida(list.getDataHoraTransacao().toLocalDate(), listaImpo)) {
+					impoRepo.save(new ListaImpotacoes(LocalDateTime.now(), list.getDataHoraTransacao().toLocalDate()));
+				}
 			}
 		}
 
-		return new PageImpl<Transacao>(repo.findAll());
+		return repo.findAll();
 	}
 
 }

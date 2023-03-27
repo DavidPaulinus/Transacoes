@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+	crossorigin="anonymous">
+</head>
+<body style = "padding: 2%">
+	<header> 
+	</header>
+	<div>
+		<h1 style="text-align: center; font-weight: bold;">IMPORTAR
+			TRANSAÇÕES</h1>
+
+		<form action="http://localhost:8080/transacao" method="post">
+			<div class="mb-3">
+				<input class="form-control" type="file" id="formFile">
+				<label for="formFile" class="form-label">Selecione o arquivo para fazer upload</label> 
+			</div>
+			<button type="submit" class="btn btn-primary">Importar</button>
+		</form>
+		<hr style = "border: 0; border-top: 2px solid black;">
+	</div>
+	<div>
+		<h1 style="text-align: center; font-weight: bold;">IMPORTAÇÕES REALIZADAS</h1>
+
+		<span style = "font-weight: bold">
+			DATA TRANSAÇÕES
+		</span>
+		<span style = "font-weight: bold; margin-left: 37%">
+			DATA IMPORTAÇÃO
+		</span>
+		<hr style = "border: 0; border-top: 3px solid black;">
+		<ul class="list-group " th:each="a : ${Transacoes}">
+			<li class="list-group-item" style = "font-weight: bold">
+				<span th:text="${a.transacao}">dataTransacao</span>
+				<span th:text="${a.importacoes}" style = "margin-left: 40%" >dataImportacoes</span>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
