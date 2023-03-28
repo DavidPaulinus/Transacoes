@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.AluraTransacao.Transacao.service.TransacaoService;
 
@@ -24,8 +26,9 @@ public class TransacaoController {
 	}
 	
 	@PostMapping
-	public String salvarDadosNoBD(Model mod) throws IOException{
-		mod.addAttribute("Transacoes", service.salvarDadosNoBD());
+	public String salvarDadosNoBD2(@RequestParam MultipartFile file, Model mod) throws IOException{
+		var dados = service.salvarDadosNoBD(file);
+		mod.addAttribute("Transacoes",dados);
 		return "listaTransacoes";
 	}
 }

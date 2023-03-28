@@ -3,6 +3,9 @@ package br.com.AluraTransacao.Transacao.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.AluraTransacao.Transacao.model.ListaImpotacoes;
 import br.com.AluraTransacao.Transacao.model.Transacao;
@@ -26,15 +30,26 @@ public class TransacaoService {
 	private TransacaoRepository repo;
 	@Autowired
 	private ImportacoesRepository impoRepo;
-
-	private String path = "C:\\Users\\USER\\Downloads\\workspace\\eclipse\\exemplo.csv";
+	
+	
+	private String path = "C:\\Users\\USER\\Downloads\\workspace\\eclipse";
 	private List<Transacao> list;
 	private BufferedReader br;
 	private Acao acao = new Acao();
 
-	public Page<Transacao> leituraArquivoCSV() throws IOException {
+	public Page<Transacao> leituraArquivoCSV(MultipartFile file) throws IOException {
+		Path diretorioPath = Paths.get(path);
+		Path arquivoPath = diretorioPath.resolve(file.getOriginalFilename());
+		
+		try {
+			Files.createDirectories(diretorioPath);
+			file.transferTo(arquivoPath);
+		}catch(IOException e){
+			throw new RuntimeException("Erro ao salvar o arquivo");
+		}
+		
 		list = new ArrayList<>();
-		br = new BufferedReader(new FileReader(path));
+		br = new BufferedReader(new FileReader(path+"\\"+file.getOriginalFilename()));
 		
 		String linha = br.readLine();
 		while (linha != null) {
@@ -52,8 +67,8 @@ public class TransacaoService {
 		return impoRepo.findAll().stream().map(ImportacoesListarDTO::new).toList();
 	}
 
-	public List<Transacao> salvarDadosNoBD() throws IOException {
-		var dados = leituraArquivoCSV();
+	public List<Transacao> salvarDadosNoBD(MultipartFile file) throws IOException {
+		var dados = leituraArquivoCSV(file);
 
 		var primeiro = dados.getContent().get(0).getDataHoraTransacao();
 		

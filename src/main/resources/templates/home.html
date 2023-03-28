@@ -15,9 +15,9 @@
 		<h1 style="text-align: center; font-weight: bold;">IMPORTAR
 			TRANSAÇÕES</h1>
 
-		<form action="http://localhost:8080/transacao" method="post">
+		<form action="/transacao" method="post" enctype="multipart/form-data">
 			<div class="mb-3">
-				<input class="form-control" type="file" id="formFile">
+				<input class="form-control" type="file" id="formFile" name = "file">
 				<label for="formFile" class="form-label">Selecione o arquivo para fazer upload</label> 
 			</div>
 			<button type="submit" class="btn btn-primary">Importar</button>

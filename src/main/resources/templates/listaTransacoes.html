@@ -10,15 +10,16 @@
 </head>
 <body>
 	<ul th:each="transacao : ${Transacoes}" class="list-group">
-		<li class="list-group-item"></li>
-		Banco Origem: <li th:text="${transacao.bancoOrigem}" class="container-md">bancoOrigem</li>
-		Agencia Origem: <li th:text="${transacao.agenciaOrigem}" class="container-md">agenciaOrigem</li>
-		Conta Origem: <li th:text="${transacao.contaOrigem}" class="container-md">contaOrigem</li>
-		Banco Destino: <li th:text="${transacao.bancoDestino}" class="container-md">bancoDestino</li>
-		Agencia Destino: <li th:text="${transacao.agenciaDestino}" class="container-md">agenciaDestino</li>
-		Agencia Destino: <li th:text="${transacao.contaDestino}" class="container-md">contaDestino</li>
-		Valor: R$ <li th:text="${transacao.valor}" class="container-md">valor</li>
-		Data e Hora da Transacao: <li th:text="${transacao.dataHoraTransacao}" class="container-md">dataHoraTransacao</li>
+		<li class="list-group-item">
+			Banco Origem: <div th:text="${transacao.bancoOrigem}" class="container-md">bancoOrigem</div>
+			Agencia Origem: <div th:text="${transacao.agenciaOrigem}" class="container-md">agenciaOrigem</div>
+			Conta Origem: <div th:text="${transacao.contaOrigem}" class="container-md">contaOrigem</div>
+			Banco Destino: <div th:text="${transacao.bancoDestino}" class="container-md">bancoDestino</div>
+			Agencia Destino: <div th:text="${transacao.agenciaDestino}" class="container-md">agenciaDestino</div>
+			Agencia Destino: <div th:text="${transacao.contaDestino}" class="container-md">contaDestino</div>
+			Valor: R$ <div th:text="${transacao.valor}" class="container-md">valor</div>
+			Data e Hora da Transacao: <div th:text="${transacao.dataHoraTransacao}" class="container-md">dataHoraTransacao</div>
+		</li>
 	</ul>
 </body>
 </html>
