@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.AluraTransacao.Transacao.service.TransacaoService;
+import jakarta.transaction.Transactional;
 
 @Controller
 @RequestMapping("/transacao")
@@ -26,6 +27,7 @@ public class TransacaoController {
 	}
 	
 	@PostMapping
+	@Transactional
 	public String salvarDadosNoBD2(@RequestParam MultipartFile file, Model mod) throws IOException{
 		var dados = service.salvarDadosNoBD(file);
 		mod.addAttribute("Transacoes",dados);

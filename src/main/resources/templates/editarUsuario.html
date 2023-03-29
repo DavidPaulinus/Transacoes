@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Cadastro</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+			crossorigin="anonymous">
+	</head>
+	<body>
+		<header><h1 style="font-weight: bold; text-align: center;">EDITAR USUÁRIO</h1></header>
+
+		<div style = "padding: 2%">
+			<form action="/user/salvo" method="post" enctype="multipart/form-data">
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label">Nome</label>
+				  <input type="text" class="form-control" id="exampleFormControlInput1" name = "nome"  th:value = "${usuario.nome}" value = "nome">
+				</div>
+				
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label">E-mail</label>
+				  <input type="email" class="form-control" id="exampleFormControlInput1" name = "email"  th:value = "${usuario.email}" value = "email">
+				</div>
+				
+				<input type="hidden" name="id" th:value="${usuario.id}" value = "id">
+				<input type="hidden" name="user" value = "user">
+				<button type="input" class="btn btn-primary">Salvar</button>
+			</form>
+		</div>
+	</body>
+
+</html>
