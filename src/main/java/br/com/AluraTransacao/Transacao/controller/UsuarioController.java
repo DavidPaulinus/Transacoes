@@ -28,7 +28,7 @@ public class UsuarioController {
 		return "listaUsuarios";
 	}
 	
-	@GetMapping
+	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
@@ -38,7 +38,7 @@ public class UsuarioController {
 		return "cadastraForm";
 	}
 	
-	@PostMapping
+	@PostMapping("/logar")
 	@Transactional
 	public String cadastroUserBD(@Valid UsuarioDTO dto) throws AuthenticationException {
 		service.cadastrar(dto);

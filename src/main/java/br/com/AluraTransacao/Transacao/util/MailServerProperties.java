@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MailServerProperties {
-	
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
