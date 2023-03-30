@@ -37,7 +37,7 @@ public class UsuarioService {
 		
 		enviarSenhaViaEmail(dto.email(), senha.toString());
 		
-		return repo.findAll().stream().filter(x -> x.getAtivo() == true).toList();
+		return repo.findAll().stream().filter(x -> x.getAtivo() == true && x.getId() != 1l).toList();
 	}
 	
 	private void enviarSenhaViaEmail(String senha, String email) {
@@ -45,7 +45,7 @@ public class UsuarioService {
 		 
 	     message.setText("Ola!\n Segue em anexo a sua senha para acessar o SISTEMA DE ANÁLISE DE TRANSAÇÕES FIANCEIRAS.\n Senha: " + senha);
 	     message.setTo(email);
-	     message.setFrom(".com");
+	     message.setFrom("emailparatestespringmvc@gmail.com");
 	     
 	     try {
 	         mailSender.send(message);
@@ -63,17 +63,23 @@ public class UsuarioService {
 		return false;
 	}
 
-	public void excluir(Long id) {
+	public void excluir(Long id) throws IllegalAccessException {
+		if(id == 1l) {
+			throw new IllegalAccessException("Ação impossível de se executar.");
+		}
 		var conta = repo.getReferenceById(id);
-		conta.excluir();
+		conta.excluir();	
 	}
 
-	public Usuario pegarPorId(Long id) {
+	public Usuario pegarPorId(Long id) throws IllegalAccessException {
+		if(id == 1l) {
+			throw new IllegalAccessException("Ação impossível de se executar.");
+		}
 		return repo.getReferenceById(id);
 	}
 
 	public List<UsuarioListarDTO> detalharUsuarios() {
-		return repo.findAll().stream().filter(x -> x.getAtivo() == true).map(UsuarioListarDTO::new).toList();
+		return repo.findAll().stream().filter(x -> x.getAtivo() == true && x.getId() != 1l).map(UsuarioListarDTO::new).toList();
 	}
 
 	public void atualizar(@Valid UsuarioDetalhamentoDTO dto) {

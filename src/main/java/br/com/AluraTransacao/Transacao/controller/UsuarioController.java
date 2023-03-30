@@ -54,14 +54,14 @@ public class UsuarioController {
 	
 	@GetMapping("/upt")
 	@Transactional
-	public String editaConta(@RequestParam("id") Long id, Model mod) {
+	public String editaConta(@RequestParam("id") Long id, Model mod) throws IllegalAccessException {
 		mod.addAttribute("usuario", service.pegarPorId(id));
 		return "editarUsuario";
 	}
 	
 	@GetMapping("/del")
 	@Transactional
-	public String deletarConta(@RequestParam("id") Long id) {
+	public String deletarConta(@RequestParam("id") Long id) throws IllegalAccessException {
 		service.excluir(id);
 		return "redirect:lista";
 	}
